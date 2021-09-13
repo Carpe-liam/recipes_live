@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <title>New Recipe</title>
+</head>
+<body>
+<!-- start container -->
+<div class="container col-8">
+<!-- navbar -->
+    <div class="rounded navbar d-flex justify-content-between px-4 bg-warning">
+        <h1>{{user.first_name}}'s New Recipe</h1>
+        <div class='d-flex'>
+            <a class="btn btn-outline-primary mx-2 px-3" href="/dashboard">Dashboard    </a>
+            <a class="btn btn-outline-danger mx-2 px-3" href="/logout">Logout</a>
+        </div>    
+    </div>
+
+    <h1> So you got here and you don't know what to do...</h1>
+    <p> We ALL felt that..</p>
+
+<!-- start of form -->
+    <form class="rounded d-flex bg-warning mx-auto justify-content-around" action="/recipes/save" method="POST">
+        <input type="hidden" name="user_id" value="{{user.id}}">
+        <div class="left m-3 mx-4 p-4">
+            <div class="mb-3">
+                <label class="form-label" for="name">Name: </label>
+                <input class="form-control" name="name" type="text">
+                {% for message in  get_flashed_messages(category_filter='name')  %}
+                    <p class="alert alert-danger p-1">{{message}}</p> 
+                {% endfor %} 
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="description">Description: </label>
+                <textarea class="form-control" name="description"cols="40" rows="4"></textarea>
+                {% for message in  get_flashed_messages(category_filter='description')  %}
+                    <p class="alert alert-danger p-1">{{message}}</p> 
+                {% endfor %} 
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="instructions">Instructions: </label>
+                <textarea class="form-control" name="instructions" cols="40" rows="4"></textarea>
+                {% for message in  get_flashed_messages(category_filter='instructions')  %}
+                    <p class="alert alert-danger p-1">{{message}}</p> 
+                {% endfor %} 
+            </div>
+        </div> 
+        <div class="right m-3 mx-4 p-4">
+            <h4>Make in under 30 minutes?</h4>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="under_30" id="option1" value="Yes">
+                <label class="form-check-label" for="option1">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="under_30" id="option2" value="No" checked="checked">
+                <label class="form-check-label" for="option2">No</label>
+            </div>
+            <div class="mt-5">
+                <label class="form-label" for="date_made_on">Made On:</label>
+                <input class="form-control" name="date_made_on" type="date">
+                {% for message in  get_flashed_messages(category_filter='date_made_on')  %}
+                    <p class="alert alert-danger p-1">{{message}}</p> 
+                {% endfor %} 
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary px-3 m-2 mt-5" type="submit">Save Recipe</button>
+            </div>
+
+        </div>
+    </form>
+</div>
+</body>
+</html>
